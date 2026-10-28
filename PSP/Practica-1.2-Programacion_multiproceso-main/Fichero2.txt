@@ -1,0 +1,10 @@
+JUAN
+10
+PEDRO
+16
+
+ANA
+0
+abc
+33
+*

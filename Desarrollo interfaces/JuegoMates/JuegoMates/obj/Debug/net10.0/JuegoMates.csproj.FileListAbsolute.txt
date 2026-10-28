@@ -1,0 +1,15 @@
+C:\Users\rafag\source\repos\JuegoMates\JuegoMates\bin\Debug\net10.0\JuegoMates.exe
+C:\Users\rafag\source\repos\JuegoMates\JuegoMates\bin\Debug\net10.0\JuegoMates.deps.json
+C:\Users\rafag\source\repos\JuegoMates\JuegoMates\bin\Debug\net10.0\JuegoMates.runtimeconfig.json
+C:\Users\rafag\source\repos\JuegoMates\JuegoMates\bin\Debug\net10.0\JuegoMates.dll
+C:\Users\rafag\source\repos\JuegoMates\JuegoMates\bin\Debug\net10.0\JuegoMates.pdb
+C:\Users\rafag\source\repos\JuegoMates\JuegoMates\obj\Debug\net10.0\JuegoMates.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\rafag\source\repos\JuegoMates\JuegoMates\obj\Debug\net10.0\JuegoMates.AssemblyInfoInputs.cache
+C:\Users\rafag\source\repos\JuegoMates\JuegoMates\obj\Debug\net10.0\JuegoMates.AssemblyInfo.cs
+C:\Users\rafag\source\repos\JuegoMates\JuegoMates\obj\Debug\net10.0\JuegoMates.csproj.CoreCompileInputs.cache
+C:\Users\rafag\source\repos\JuegoMates\JuegoMates\obj\Debug\net10.0\JuegoMates.dll
+C:\Users\rafag\source\repos\JuegoMates\JuegoMates\obj\Debug\net10.0\refint\JuegoMates.dll
+C:\Users\rafag\source\repos\JuegoMates\JuegoMates\obj\Debug\net10.0\JuegoMates.pdb
+C:\Users\rafag\source\repos\JuegoMates\JuegoMates\obj\Debug\net10.0\JuegoMates.genruntimeconfig.cache
+C:\Users\rafag\source\repos\JuegoMates\JuegoMates\obj\Debug\net10.0\ref\JuegoMates.dll
+C:\Users\rafag\source\repos\JuegoMates\JuegoMates\obj\Debug\net10.0\JuegoMates.csproj.Up2Date
