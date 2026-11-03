@@ -1,0 +1,64 @@
+﻿<Window x:Class="FichaUsuario.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Ficha de usuario"
+        SizeToContent="Height"
+        Width="400"
+        ResizeMode="CanMinimize"
+        Loaded="Window_Loaded">
+
+    <Grid Margin="16">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Fila 0: Nombre -->
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Nombre:"
+                   Margin="0,0,8,8" VerticalAlignment="Center"/>
+        <TextBox x:Name="txtNombre" Grid.Row="0" Grid.Column="1"
+                 MaxLength="60" Margin="0,0,0,8"/>
+
+        <!-- Fila 1: Correo -->
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Correo:"
+                   Margin="0,0,8,8" VerticalAlignment="Center"/>
+        <TextBox x:Name="txtCorreo" Grid.Row="1" Grid.Column="1"
+                 MaxLength="100" Margin="0,0,0,8"/>
+
+        <!-- Fila 2: Ciudad -->
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Ciudad:"
+                   Margin="0,0,8,8" VerticalAlignment="Center"/>
+        <ComboBox x:Name="cmbCiudad" Grid.Row="2" Grid.Column="1"
+                  DisplayMemberPath="Nombre" SelectedValuePath="Id"
+                  IsEditable="False" Margin="0,0,0,8"/>
+
+        <!-- Fila 3: Fecha -->
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="Fecha:"
+                   Margin="0,0,8,8" VerticalAlignment="Center"/>
+        <DatePicker x:Name="dpFecha" Grid.Row="3" Grid.Column="1"
+                    Margin="0,0,0,8"/>
+
+        <!-- Fila 4: Casilla (sin etiqueta, lleva su propio texto) -->
+        <CheckBox x:Name="chkCondiciones" Grid.Row="4" Grid.Column="1"
+                  Content="Acepto condiciones" Margin="0,0,0,8"/>
+
+        <!-- Fila 5: Botón Guardar (sin etiqueta) -->
+        <Button x:Name="btnGuardar" Grid.Row="5" Grid.Column="1"
+                Content="Guardar" IsEnabled="False" IsDefault="True"
+                HorizontalAlignment="Left" Padding="16,4" Margin="0,0,0,8"/>
+
+        <!-- Fila 6: Resumen (ocupa las dos columnas, vacío al abrir) -->
+        <TextBlock x:Name="txtResumen" Grid.Row="6" Grid.Column="0"
+                   Grid.ColumnSpan="2" FontWeight="SemiBold"
+                   TextWrapping="Wrap" Margin="0,8,0,0"/>
+    </Grid>
+</Window>
