@@ -1,0 +1,9 @@
+C:\Users\rafag\source\repos\FichaUsuario\FichaUsuario\obj\Debug\FichaUsuario.csproj.AssemblyReference.cache
+C:\Users\rafag\source\repos\FichaUsuario\FichaUsuario\obj\Debug\MainWindow.baml
+C:\Users\rafag\source\repos\FichaUsuario\FichaUsuario\obj\Debug\MainWindow.g.cs
+C:\Users\rafag\source\repos\FichaUsuario\FichaUsuario\obj\Debug\App.g.cs
+C:\Users\rafag\source\repos\FichaUsuario\FichaUsuario\obj\Debug\FichaUsuario_MarkupCompile.cache
+C:\Users\rafag\source\repos\FichaUsuario\FichaUsuario\obj\Debug\FichaUsuario.g.resources
+C:\Users\rafag\source\repos\FichaUsuario\FichaUsuario\obj\Debug\FichaUsuario.Properties.Resources.resources
+C:\Users\rafag\source\repos\FichaUsuario\FichaUsuario\obj\Debug\FichaUsuario.csproj.GenerateResource.cache
+C:\Users\rafag\source\repos\FichaUsuario\FichaUsuario\obj\Debug\FichaUsuario.csproj.CoreCompileInputs.cache
