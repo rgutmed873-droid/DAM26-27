@@ -1,0 +1,15 @@
+﻿<!--
+  App.xaml -> PUNTO DE ENTRADA de la aplicación.
+  Lo único importante es StartupUri: indica qué ventana se abre al arrancar.
+  Aquí es MainWindow.xaml. No hace falta tocar nada más en este archivo.
+-->
+<Application
+    x:Class="Calculadora.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    StartupUri="MainWindow.xaml">
+
+    <Application.Resources>
+    </Application.Resources>
+
+</Application>

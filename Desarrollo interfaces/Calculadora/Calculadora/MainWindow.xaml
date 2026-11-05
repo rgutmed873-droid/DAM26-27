@@ -1,0 +1,125 @@
+﻿<!--
+  =====================================================================
+   MainWindow.xaml  ->  EL ASPECTO de la ventana
+  =====================================================================
+   XAML es un lenguaje parecido a HTML: describe QUÉ hay en la ventana
+   (pantalla, botones...) y DÓNDE está cada cosa. La lógica está en
+   MainWindow.xaml.cs.
+-->
+<Window
+    x:Class="Calculadora.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Calculadora"
+    Width="400"
+    Height="600"
+    MinWidth="300"
+    MinHeight="450">
+    <!--
+      x:Class     -> une este XAML con la clase MainWindow del archivo .cs
+      xmlns=...   -> "diccionarios" que le dicen a WPF qué significan Window, Grid, Button...
+                     (se copian siempre igual, no hay que aprendérselos)
+      Width/Height -> tamaño inicial; MinWidth/MinHeight -> tamaño mínimo al redimensionar
+    -->
+
+    <!-- ESTILO: se aplica a TODOS los botones, así no repetimos FontSize en cada uno -->
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="32"/>
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+    </Window.Resources>
+
+    <!--
+      GRID = cuadrícula (filas y columnas). Aquí dividimos la ventana en 2 filas:
+        - Fila 0: la pantalla (1 parte de la altura)
+        - Fila 1: el teclado  (4 partes de la altura)
+      "1*" y "4*" significan proporciones: el teclado ocupa 4 veces más que la pantalla.
+    -->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+
+        <!-- ================= PANTALLA (fila 0) ================= -->
+        <!--
+          Border = un recuadro con fondo. Dentro va el TextBlock con los números.
+          x:Name="Pantalla" le pone un NOMBRE: gracias a eso, en el .cs podemos
+          escribir Pantalla.Text = "..." para cambiar lo que se ve.
+        -->
+        <Border Grid.Row="0" Background="LightBlue" Padding="10">
+            <TextBlock x:Name="Pantalla"
+                       Text="0"
+                       FontSize="56"
+                       TextAlignment="Right"
+                       VerticalAlignment="Center"/>
+        </Border>
+
+        <!-- ================= TECLADO (fila 1) ================= -->
+        <!--
+          Otro Grid dentro, esta vez con 5 filas y 4 columnas, todas iguales ("*").
+          Cada botón dice en qué casilla va con Grid.Row y Grid.Column (empiezan en 0).
+
+          Distribución:
+            ┌───┬───┬───┬───┐
+            │      C    │ / │   fila 0   (C ocupa 3 columnas)
+            ├───┼───┼───┼───┤
+            │ 7 │ 8 │ 9 │ * │   fila 1
+            ├───┼───┼───┼───┤
+            │ 4 │ 5 │ 6 │ - │   fila 2
+            ├───┼───┼───┼───┤
+            │ 1 │ 2 │ 3 │ + │   fila 3
+            ├───┼───┼───┼───┤
+            │   0   │ . │ = │   fila 4   (0 ocupa 2 columnas)
+            └───┴───┴───┴───┘
+        -->
+        <Grid Grid.Row="1" Background="LightGray">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--
+              Click="Nombre" -> método del .cs que se ejecuta al pulsar el botón.
+              Grid.ColumnSpan="3" -> el botón se estira ocupando 3 columnas.
+            -->
+
+            <!-- Fila 0 -->
+            <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Content="C" Click="Borrar_Click"/>
+            <Button Grid.Row="0" Grid.Column="3" Content="/" Click="Operador_Click"/>
+
+            <!-- Fila 1 -->
+            <Button Grid.Row="1" Grid.Column="0" Content="7" Click="Numero_Click"/>
+            <Button Grid.Row="1" Grid.Column="1" Content="8" Click="Numero_Click"/>
+            <Button Grid.Row="1" Grid.Column="2" Content="9" Click="Numero_Click"/>
+            <Button Grid.Row="1" Grid.Column="3" Content="*" Click="Operador_Click"/>
+
+            <!-- Fila 2 -->
+            <Button Grid.Row="2" Grid.Column="0" Content="4" Click="Numero_Click"/>
+            <Button Grid.Row="2" Grid.Column="1" Content="5" Click="Numero_Click"/>
+            <Button Grid.Row="2" Grid.Column="2" Content="6" Click="Numero_Click"/>
+            <Button Grid.Row="2" Grid.Column="3" Content="-" Click="Operador_Click"/>
+
+            <!-- Fila 3 -->
+            <Button Grid.Row="3" Grid.Column="0" Content="1" Click="Numero_Click"/>
+            <Button Grid.Row="3" Grid.Column="1" Content="2" Click="Numero_Click"/>
+            <Button Grid.Row="3" Grid.Column="2" Content="3" Click="Numero_Click"/>
+            <Button Grid.Row="3" Grid.Column="3" Content="+" Click="Operador_Click"/>
+
+            <!-- Fila 4 -->
+            <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="0" Click="Numero_Click"/>
+            <Button Grid.Row="4" Grid.Column="2" Content="." Click="Punto_Click"/>
+            <Button Grid.Row="4" Grid.Column="3" Content="=" Click="Igual_Click"/>
+        </Grid>
+    </Grid>
+</Window>
