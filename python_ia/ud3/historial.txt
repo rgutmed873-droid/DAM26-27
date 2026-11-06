@@ -1,0 +1,4 @@
+Intento 1: 6.5
+Intento 2: 7.9
+Intento 3: 4.6
+Intento 4: 8.5
