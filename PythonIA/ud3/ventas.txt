@@ -1,0 +1,5 @@
+teclado,2,15.50
+raton,1
+monitor,1,120.00
+cable,dos,5.00
+altavoces,3,20.00

@@ -1,0 +1,6 @@
+150
+200
+nulo
+50
+error de conexion
+100
