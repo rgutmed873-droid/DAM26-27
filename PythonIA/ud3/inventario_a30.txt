@@ -1,3 +1,0 @@
-ratón,15
-teclado,8
-monitor,2

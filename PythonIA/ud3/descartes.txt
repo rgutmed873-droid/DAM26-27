@@ -1,4 +1,0 @@
-Línea 4: valor no válido '2026-10-02, Ana, 24:x, 5'
-Línea 5: formato incorrecto '2026-10-02, Eva, 40:10'
-Línea 6: formato incorrecto '2026-10-03, Luis, 29:45,6, extra'
-Línea 9: valor no válido '2026-10-04, Luis, 30:10,'

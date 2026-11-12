@@ -1,4 +1,0 @@
-pan,1.20
-leche,0.70
-huevos,2.50
-manzana,1.90
