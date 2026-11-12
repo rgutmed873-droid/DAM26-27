@@ -1,0 +1,47 @@
+﻿<!-- DETALLEWINDOW.XAML: ventana secundaria que enseña la información de UN hábito.
+     Se abre al hacer clic sobre una fila de la tabla de MainWindow.
+     Se cierra pulsando la tecla ESC (PreviewKeyDown, más abajo). -->
+<Window x:Class="Habitos.DetalleWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Detalle del hábito"
+        Width="320" Height="220"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        PreviewKeyDown="Window_PreviewKeyDown">
+
+    <!-- Grid: rejilla de filas y columnas.
+         Columna 0 = etiquetas (Auto: lo justo para el texto)
+         Columna 1 = valores (*: el espacio que sobra) -->
+    <Grid Margin="15">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Grid.Row / Grid.Column indican en qué celda de la rejilla va cada control.
+             Los TextBlock con x:Name se rellenan desde el .cs -->
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="ID:" FontWeight="Bold" Margin="0,0,10,8"/>
+        <TextBlock Grid.Row="0" Grid.Column="1" x:Name="txtId"/>
+
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Hábito:" FontWeight="Bold" Margin="0,0,10,8"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" x:Name="txtNombre" TextWrapping="Wrap"/>
+
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Cantidad:" FontWeight="Bold" Margin="0,0,10,8"/>
+        <TextBlock Grid.Row="2" Grid.Column="1" x:Name="txtCantidad"/>
+
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="Fecha:" FontWeight="Bold" Margin="0,0,10,8"/>
+        <TextBlock Grid.Row="3" Grid.Column="1" x:Name="txtFecha"/>
+
+        <!-- Texto de ayuda abajo del todo. Grid.ColumnSpan="2" = ocupa las dos columnas -->
+        <TextBlock Grid.Row="4" Grid.ColumnSpan="2" Text="Pulsa ESC para cerrar"
+                   Foreground="Gray" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+    </Grid>
+</Window>
