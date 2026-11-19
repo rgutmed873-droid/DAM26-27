@@ -1,0 +1,167 @@
+<!--
+  VENTANA DE DETALLE de un préstamo.
+  Todos los datos se muestran con BINDING (enlace a datos, apuntes 2.7): en vez de escribir el texto
+  desde C#, cada TextBlock dice qué propiedad del préstamo quiere mostrar, por ejemplo {Binding Correo}.
+  El préstamo llega en el constructor y se guarda en DataContext (mira VentanaDetalle.xaml.cs).
+  Etiquetas: [ENUNCIADO] = lo pide el PDF de la práctica (no sale en apuntes) · [EXTRA] = añadido por mí.
+-->
+<Window x:Class="PrestamosGC.VentanaDetalle"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Detalle del préstamo"
+        Icon="/Recursos/portatil.png"
+        Width="520"
+        SizeToContent="Height"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        Language="es-ES"
+        Padding="16"
+        Background="{StaticResource ColorFondoGris}">
+    <!-- SizeToContent="Height", ShowInTaskbar="False", CenterOwner, NoResize: igual que en el formulario.
+         [ENUNCIADO] Language="es-ES": WPF formatea fechas en inglés por defecto. Con es-ES las fechas
+         y números de TODA la ventana salen en español ("domingo, 15 de noviembre de 2026").
+         Background: fondo gris claro (el pincel está en App.xaml).
+         [EXTRA] Padding="16" e Icon, igual que en el formulario. -->
+
+    <Window.Resources>
+        <!-- [EXTRA] Estilo solo de esta ventana (por eso no está en App.xaml) para el campo Observaciones.
+             Si el préstamo no tiene observaciones, se muestra una raya "—" (como en la figura 3).
+             Truco: el Text va dentro del Style (con su Binding) y NO en el TextBlock, porque un valor
+             escrito directamente en el control le ganaría al DataTrigger y la raya nunca saldría. -->
+        <Style x:Key="ValorObservaciones" TargetType="TextBlock" BasedOn="{StaticResource FilaValor}">
+            <Setter Property="Text" Value="{Binding Observaciones}"/>
+            <Style.Triggers>
+                <!-- DataTrigger: si Observaciones está vacío (""), el Text pasa a ser "—" -->
+                <DataTrigger Binding="{Binding Observaciones}" Value="">
+                    <Setter Property="Text" Value="—"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <StackPanel>
+
+        <!-- ===================== CABECERA: círculo con el portátil, nombre y estado ===================== -->
+        <Grid Style="{StaticResource Cabecera}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Círculo azul (estilo Avatar de App.xaml) con el código del portátil dentro -->
+            <Border Grid.Column="0" Style="{StaticResource Avatar}">
+                <!-- {Binding Portatil} = "muestra la propiedad Portatil del préstamo" -->
+                <TextBlock Text="{Binding Portatil}"
+                           Foreground="{StaticResource ColorTextoClaro}"
+                           FontWeight="SemiBold"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+            </Border>
+
+            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                <TextBlock Style="{StaticResource Titulo}" Text="{Binding NombreCompleto}"/>
+
+                <!-- [ENUNCIADO] Una sola línea hecha con DOS "Run" (trozos de texto dentro de un TextBlock):
+                     "2º DAW" + " · " + "En préstamo". Cada Run tiene su propio Binding.
+                     Mode=OneWay en Estado: Estado es de SOLO LECTURA (no tiene "set") y un Run intenta por
+                     defecto enlazar en los dos sentidos (TwoWay), lo que daría error. OneWay = solo dato -> pantalla
+                     (apuntes 2.7). Grupo sí se puede escribir, por eso no lo necesita. -->
+                <TextBlock Style="{StaticResource Subtitulo}">
+                    <Run Text="{Binding Grupo}"/><Run Text=" · "/><Run Text="{Binding Estado, Mode=OneWay}"/>
+                </TextBlock>
+            </StackPanel>
+        </Grid>
+
+        <!-- ===================== TARJETA CON LOS DATOS ===================== -->
+        <!-- Border con el estilo Tarjeta (fondo blanco y esquinas redondeadas) -->
+        <Border Style="{StaticResource Tarjeta}">
+            <!-- Grid de 2 columnas (etiqueta Auto + valor *) y 8 filas, una por dato -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- [EXTRA] Líneas grises entre filas. Cada Border ocupa las 2 columnas (ColumnSpan="2")
+                     y solo dibuja su borde inferior. Van primero para quedar detrás del texto. -->
+                <Border Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource Separador}"/>
+                <Border Grid.Row="1" Grid.ColumnSpan="2" Style="{StaticResource Separador}"/>
+                <Border Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource Separador}"/>
+                <Border Grid.Row="3" Grid.ColumnSpan="2" Style="{StaticResource Separador}"/>
+                <Border Grid.Row="4" Grid.ColumnSpan="2" Style="{StaticResource Separador}"/>
+                <Border Grid.Row="5" Grid.ColumnSpan="2" Style="{StaticResource Separador}"/>
+                <Border Grid.Row="6" Grid.ColumnSpan="2" Style="{StaticResource Separador}"/>
+
+                <!-- Cada fila: etiqueta en la columna 0 y valor (con Binding) en la columna 1 -->
+
+                <!-- Fila 0: Correo -->
+                <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource FilaEtiqueta}" Text="Correo"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource FilaValor}"
+                           Text="{Binding Correo}"/>
+
+                <!-- Fila 1: Motivo -->
+                <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource FilaEtiqueta}" Text="Motivo"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource FilaValor}"
+                           Text="{Binding Motivo}"/>
+
+                <!-- Fila 2: Incluye cargador (CargadorTexto ya devuelve "Sí" o "No") -->
+                <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource FilaEtiqueta}" Text="Incluye cargador"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource FilaValor}"
+                           Text="{Binding CargadorTexto}"/>
+
+                <!-- Fila 3: Fecha de préstamo.
+                     [ENUNCIADO] StringFormat da formato al valor. Cuando el formato empieza por una llave
+                     se escribe "{}" delante, para que XAML no lo confunda con otro Binding.
+                     {0:dd/MM/yyyy} = el valor (0) como día/mes/año. -->
+                <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource FilaEtiqueta}" Text="Fecha de préstamo"/>
+                <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource FilaValor}"
+                           Text="{Binding FechaPrestamo, StringFormat={}{0:dd/MM/yyyy}}"/>
+
+                <!-- Fila 4: Devolución prevista. {0:D} = fecha larga ("domingo, 15 de noviembre de 2026").
+                     Sale en español gracias al Language="es-ES" de la ventana. -->
+                <TextBlock Grid.Row="4" Grid.Column="0" Style="{StaticResource FilaEtiqueta}" Text="Devolución prevista"/>
+                <TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource FilaValor}"
+                           Text="{Binding FechaDevolucionPrevista, StringFormat={}{0:D}}"/>
+
+                <!-- Fila 5: Duración. Si el formato lleva espacios, va entre comillas simples: '{}{0} días' -> "7 días" -->
+                <TextBlock Grid.Row="5" Grid.Column="0" Style="{StaticResource FilaEtiqueta}" Text="Duración"/>
+                <TextBlock Grid.Row="5" Grid.Column="1" Style="{StaticResource FilaValor}"
+                           Text="{Binding DuracionDias, StringFormat='{}{0} días'}"/>
+
+                <!-- Fila 6: Plazo ("Quedan 4 días", "Vencido hace 2 días"...). Lo calcula la clase Prestamo -->
+                <TextBlock Grid.Row="6" Grid.Column="0" Style="{StaticResource FilaEtiqueta}" Text="Plazo"/>
+                <TextBlock Grid.Row="6" Grid.Column="1" Style="{StaticResource FilaValor}"
+                           Text="{Binding Plazo}"/>
+
+                <!-- Fila 7: Observaciones. Usa el estilo de arriba (con la raya si está vacío).
+                     [ENUNCIADO] Las observaciones largas se ven completas porque el estilo FilaValor
+                     tiene TextWrapping="Wrap". -->
+                <TextBlock Grid.Row="7" Grid.Column="0" Style="{StaticResource FilaEtiqueta}" Text="Observaciones"/>
+                <TextBlock Grid.Row="7" Grid.Column="1" Style="{StaticResource ValorObservaciones}"/>
+            </Grid>
+        </Border>
+
+        <!-- ===================== BOTONES ===================== -->
+        <StackPanel Style="{StaticResource BarraBotones}">
+            <!-- IsCancel="True": responde a Esc y cierra la ventana -->
+            <Button x:Name="btnCerrar" Content="Cerrar" IsCancel="True"/>
+            <!-- [ENUNCIADO] IsEnabled enlazado con Binding a EstaActivo:
+                 si el préstamo ya se devolvió (EstaActivo = false), el botón sale desactivado solo. -->
+            <Button x:Name="btnDevolucion" Content="Registrar devolución"
+                    Style="{StaticResource BotonPrincipal}"
+                    IsEnabled="{Binding EstaActivo}"
+                    Click="Devolucion_Click"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

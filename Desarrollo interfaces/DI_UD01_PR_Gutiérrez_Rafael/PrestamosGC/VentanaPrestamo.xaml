@@ -1,0 +1,203 @@
+<!--
+  FORMULARIO DE PRÉSTAMO NUEVO.
+  Etiquetas: [ENUNCIADO] = lo pide el PDF de la práctica (no sale en apuntes) · [EXTRA] = añadido por mí.
+
+  Estructura de cada campo del formulario (una "celda"):
+      StackPanel (una pila vertical)
+        ├─ TextBlock  -> la etiqueta (arriba)
+        ├─ el control -> TextBox, ComboBox, DatePicker... (en medio)
+        └─ TextBlock  -> el mensaje de error (abajo, oculto hasta que haga falta)
+-->
+<Window x:Class="PrestamosGC.VentanaPrestamo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Nuevo préstamo"
+        Icon="/Recursos/portatil.png"
+        Width="620"
+        SizeToContent="Height"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        Padding="20"
+        FocusManager.FocusedElement="{Binding ElementName=txtNombre}">
+    <!-- Width="620": ancho fijo.
+         [ENUNCIADO] SizeToContent="Height": el alto se ajusta solo al contenido.
+         WindowStartupLocation="CenterOwner": se abre centrada sobre la ventana que la abrió.
+         ResizeMode="NoResize": el usuario no puede cambiarle el tamaño.
+         [ENUNCIADO] ShowInTaskbar="False": no aparece como otro icono en la barra de tareas.
+         [EXTRA] Padding="20": espacio entre el borde de la ventana y su contenido.
+         [EXTRA] FocusManager.FocusedElement: hace que el cursor empiece en la caja txtNombre
+                 (el enunciado dice que el foco empiece en el nombre).
+         [EXTRA] Icon: icono de la ventana. -->
+
+    <!-- StackPanel vertical (por defecto): título, formulario, error general y botones, uno debajo de otro -->
+    <StackPanel>
+
+        <!-- ===================== CABECERA ===================== -->
+        <TextBlock Style="{StaticResource Titulo}" Text="Nuevo préstamo"/>
+        <TextBlock Style="{StaticResource Subtitulo}" Text="Rellena los datos del alumno y del portátil"/>
+
+        <!-- ===================== FORMULARIO ===================== -->
+        <!-- Grid de 2 columnas iguales (Width="*" las dos) y 7 filas Auto (cada una del alto de su contenido).
+             [EXTRA] KeyboardNavigation.TabIndex = orden en que se recorre con la tecla Tab.
+             Va del 0 al 10, de izquierda a derecha y de arriba abajo, como en la figura 2.
+             (El enunciado pide revisar el TabIndex; la forma "KeyboardNavigation.TabIndex" es la
+             que se usa en los paneles. No sale en apuntes.) -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- ~~~~~~~~~~ FILA 0 · Nombre | Apellidos ~~~~~~~~~~ -->
+            <!-- Grid.Row y Grid.Column = en qué celda del Grid va (propiedades adjuntas, apuntes 2.3).
+                 [EXTRA] Style CeldaIzquierda: deja un hueco entre las dos columnas. -->
+            <StackPanel Grid.Row="0" Grid.Column="0" Style="{StaticResource CeldaIzquierda}"
+                        KeyboardNavigation.TabIndex="0">
+                <TextBlock Style="{StaticResource Etiqueta}" Text="Nombre"/>
+                <!-- TextChanged="CampoCambiado": al escribir, el código oculta el error de este campo -->
+                <TextBox x:Name="txtNombre" TextChanged="CampoCambiado"/>
+                <!-- Mensaje de error: oculto por el estilo MensajeError. El código lo muestra si hace falta -->
+                <TextBlock x:Name="errNombre" Style="{StaticResource MensajeError}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="0" Grid.Column="1" Style="{StaticResource CeldaDerecha}"
+                        KeyboardNavigation.TabIndex="1">
+                <TextBlock Style="{StaticResource Etiqueta}" Text="Apellidos"/>
+                <TextBox x:Name="txtApellidos" TextChanged="CampoCambiado"/>
+                <TextBlock x:Name="errApellidos" Style="{StaticResource MensajeError}"/>
+            </StackPanel>
+
+            <!-- ~~~~~~~~~~ FILA 1 · Grupo | Correo ~~~~~~~~~~ -->
+            <StackPanel Grid.Row="1" Grid.Column="0" Style="{StaticResource CeldaIzquierda}"
+                        KeyboardNavigation.TabIndex="2">
+                <TextBlock Style="{StaticResource Etiqueta}" Text="Grupo"/>
+                <!-- Las 6 opciones están escritas a mano como ComboBoxItem (lo pide el enunciado) -->
+                <ComboBox x:Name="cmbGrupo" SelectionChanged="CampoCambiado">
+                    <ComboBoxItem Content="1º DAM"/>
+                    <ComboBoxItem Content="2º DAM"/>
+                    <ComboBoxItem Content="1º DAW"/>
+                    <ComboBoxItem Content="2º DAW"/>
+                    <ComboBoxItem Content="1º ASIR"/>
+                    <ComboBoxItem Content="2º ASIR"/>
+                </ComboBox>
+                <TextBlock x:Name="errGrupo" Style="{StaticResource MensajeError}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.Column="1" Style="{StaticResource CeldaDerecha}"
+                        KeyboardNavigation.TabIndex="3">
+                <TextBlock Style="{StaticResource Etiqueta}" Text="Correo del centro"/>
+                <TextBox x:Name="txtCorreo" TextChanged="CampoCambiado"/>
+                <TextBlock x:Name="errCorreo" Style="{StaticResource MensajeError}"/>
+            </StackPanel>
+
+            <!-- ~~~~~~~~~~ FILA 2 · Portátil | Motivo ~~~~~~~~~~ -->
+            <StackPanel Grid.Row="2" Grid.Column="0" Style="{StaticResource CeldaIzquierda}"
+                        KeyboardNavigation.TabIndex="4">
+                <TextBlock Style="{StaticResource Etiqueta}" Text="Portátil"/>
+                <!-- Este ComboBox está VACÍO: se rellena desde C# con ItemsSource (ejercicio 5a) -->
+                <ComboBox x:Name="cmbPortatil" SelectionChanged="CampoCambiado"/>
+                <TextBlock x:Name="errPortatil" Style="{StaticResource MensajeError}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Grid.Column="1" Style="{StaticResource CeldaDerecha}"
+                        KeyboardNavigation.TabIndex="5">
+                <TextBlock Style="{StaticResource Etiqueta}" Text="Motivo"/>
+                <!-- StackPanel horizontal con los 3 RadioButton.
+                     GroupName="Motivo": solo uno marcado a la vez. Ninguno viene marcado.
+                     Checked="Motivo_Checked": se ejecuta al marcar cualquiera de ellos. -->
+                <StackPanel Style="{StaticResource GrupoOpciones}">
+                    <RadioButton x:Name="rbProyecto" Content="Proyecto" GroupName="Motivo"
+                                 Checked="Motivo_Checked"/>
+                    <RadioButton x:Name="rbPracticas" Content="Prácticas" GroupName="Motivo"
+                                 Checked="Motivo_Checked"/>
+                    <RadioButton x:Name="rbOtro" Content="Otro" GroupName="Motivo"
+                                 Checked="Motivo_Checked"/>
+                </StackPanel>
+                <TextBlock x:Name="errMotivo" Style="{StaticResource MensajeError}"/>
+            </StackPanel>
+
+            <!-- ~~~~~~~~~~ FILA 3 · Fecha de préstamo | Fecha de devolución ~~~~~~~~~~ -->
+            <StackPanel Grid.Row="3" Grid.Column="0" Style="{StaticResource CeldaIzquierda}"
+                        KeyboardNavigation.TabIndex="6">
+                <TextBlock Style="{StaticResource Etiqueta}" Text="Fecha de préstamo"/>
+                <!-- SelectedDateChanged: se lanza al cambiar la fecha. Este método ajusta la otra fecha -->
+                <DatePicker x:Name="dpPrestamo" SelectedDateChanged="FechaPrestamo_SelectedDateChanged"/>
+                <TextBlock x:Name="errFechaPrestamo" Style="{StaticResource MensajeError}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="3" Grid.Column="1" Style="{StaticResource CeldaDerecha}"
+                        KeyboardNavigation.TabIndex="7">
+                <TextBlock Style="{StaticResource Etiqueta}" Text="Fecha de devolución"/>
+                <DatePicker x:Name="dpDevolucion" SelectedDateChanged="CampoCambiado"/>
+                <TextBlock x:Name="errFechaDevolucion" Style="{StaticResource MensajeError}"/>
+            </StackPanel>
+
+            <!-- ~~~~~~~~~~ FILA 4 · Incluye cargador (ocupa las 2 columnas) ~~~~~~~~~~ -->
+            <!-- [ENUNCIADO] Grid.ColumnSpan="2": el control se estira por las dos columnas.
+                 IsChecked="True": empieza marcada (lo pide el enunciado). -->
+            <CheckBox x:Name="chkCargador" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+                      KeyboardNavigation.TabIndex="8"
+                      Content="Incluye cargador" IsChecked="True"/>
+
+            <!-- ~~~~~~~~~~ FILA 5 · Observaciones (2 columnas) ~~~~~~~~~~ -->
+            <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
+                        KeyboardNavigation.TabIndex="9">
+                <!-- Esta etiqueta tiene nombre porque el código cambia su texto si el motivo es «Otro» -->
+                <TextBlock x:Name="lblObservaciones" Style="{StaticResource Etiqueta}" Text="Observaciones"/>
+                <!-- TextBox de varias líneas. Todas estas propiedades las pide el enunciado:
+                     AcceptsReturn="True"            -> Intro crea una línea nueva
+                     TextWrapping="Wrap"              -> el texto salta de línea al llegar al borde
+                     VerticalScrollBarVisibility="Auto" -> barra de desplazamiento solo si hace falta
+                     MaxLength="200"                  -> máximo 200 caracteres
+                     Height="64"                      -> alto fijo (más alto que una caja normal)
+                     [EXTRA] VerticalContentAlignment="Top": el texto empieza arriba (el estilo general lo centra) -->
+                <TextBox x:Name="txtObservaciones"
+                         AcceptsReturn="True"
+                         TextWrapping="Wrap"
+                         VerticalScrollBarVisibility="Auto"
+                         VerticalContentAlignment="Top"
+                         MaxLength="200"
+                         Height="64"
+                         TextChanged="Observaciones_TextChanged"/>
+                <!-- Contador de caracteres, a la derecha. El código lo actualiza («37/200») -->
+                <TextBlock x:Name="txtContador" Style="{StaticResource Subtitulo}"
+                           HorizontalAlignment="Right" Text="0/200"/>
+                <TextBlock x:Name="errObservaciones" Style="{StaticResource MensajeError}"/>
+            </StackPanel>
+
+            <!-- ~~~~~~~~~~ FILA 6 · Normas de uso (2 columnas) ~~~~~~~~~~ -->
+            <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
+                        KeyboardNavigation.TabIndex="10">
+                <!-- Checked: al marcarla, desaparece el error -->
+                <CheckBox x:Name="chkNormas"
+                          Content="El alumno conoce y acepta las normas de uso de los portátiles"
+                          Checked="CampoCambiado"/>
+                <TextBlock x:Name="errNormas" Style="{StaticResource MensajeError}"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- ===================== ERROR GENERAL ===================== -->
+        <!-- Aquí sale el mensaje si falla el guardado (por ejemplo, "El portátil P07 ya está prestado") -->
+        <TextBlock x:Name="txtErrorGeneral" Style="{StaticResource MensajeError}"/>
+
+        <!-- ===================== BOTONES ===================== -->
+        <StackPanel Style="{StaticResource BarraBotones}">
+            <!-- IsCancel="True": responde a la tecla Esc y cierra el formulario sin guardar -->
+            <Button x:Name="btnCancelar" Content="Cancelar" IsCancel="True"/>
+            <!-- IsDefault="True": responde a la tecla Intro -->
+            <Button x:Name="btnRegistrar" Content="Registrar préstamo"
+                    Style="{StaticResource BotonPrincipal}"
+                    IsDefault="True" Click="Registrar_Click"/>
+        </StackPanel>
+    </StackPanel>
+</Window>
